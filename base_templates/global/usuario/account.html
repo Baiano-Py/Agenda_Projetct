@@ -1,0 +1,31 @@
+{% extends 'global/base.html' %}
+
+{% block content %}
+  <div class="single-contact">
+    <h1 class="single-contact-name">
+        Informações do usuario
+    </h1>
+
+    <p><b>Id:</b> {{ user.id }} </p>
+    <p><b>First Name:</b> {% if user.first_name == '' %}None{% endif %} {{ user.first_name }} </p>
+    <p><b>Last Name:</b> {% if user.last_name == '' %}None{% endif %} {{ user.last_name }}</p>
+    <p><b>E-mail:</b> {{ user.email }}</p>
+    <p><b>Created Date:</b> {{ user.date_joined }}</p>
+
+    <div class="contact-links">
+        <a class="btn btn-link" href="{% url "contact:account_update" %}">Update</a>
+
+        <a class="btn btn-link btn-reset" href="{% url "contact:password_reset" %}">Password reset</a>
+  
+        <form action="{% url "contact:account_delete" %}" method="post">
+          {% csrf_token %}
+          {% if confirmation == 'no' %}
+            <input type="hidden" name="confirmation" value="yes">
+            <button class="btn btn-link btn-delete" type="submit">Confirm</button>
+          {% else %}
+            <button class="btn btn-link btn-delete" type="submit">Delete</button>
+          {% endif %}
+        </form>
+      </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,42 @@
+{% load static %}<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{site_title}} Account Update</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static "global/css/register.css" %}">
+</head>
+<body class="bg-gradient-to-r from-blue-100 to-indigo-200 h-screen flex items-center justify-center">
+
+    <div class="bg-white p-6 md:p-8 rounded-lg shadow-2xl max-w-md w-full">
+        
+        <h2 id="formTitle" class="text-3xl font-extrabold text-center mb-8 text-gray-800">Account Update</h2>
+        
+        <div id="errorMessage" class="text-red-500 text-sm mb-4 hidden"></div>
+
+
+        <!-- Form Cadastro -->
+        <form action="{% url "contact:account_update" %}" method="POST" id="registerForm" class="space-y-6" aria-label="Formulário de Cadastro">
+            {% csrf_token %}
+            <div>
+                <label for="First Name" class="block text-sm font-medium text-gray-700">First Name</label>
+                <input type="text" name="First_Name" id="First_Name" placeholder="Mude seu nome" aria-label="Digite seu nome de usuário" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{user.first_name}}" >
+            </div>
+            <div>
+                <label for="Last Name" class="block text-sm font-medium text-gray-700">Last Name</label>
+                <input type="text" name="Last_Name" id="Last_Name" placeholder="Mude seu sobrenome" aria-label="Digite seu nome de usuário" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{user.last_name}}">
+            </div>
+            <div>
+                <label for="registerEmail" class="block text-sm font-medium text-gray-700">E-mail</label>
+                <input type="email" name="Email" id="registerEmail" placeholder="Mude seu E-mail" aria-label="Digite seu e-mail para cadastro" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-1" value="{{user.email}}">
+                {% if errors.Email %}
+                    <p class="text-red-500 text-sm mt-1">{{ errors.Email }}</p>
+                {% endif %}
+            </div>
+
+
+            <button type="submit" value="cadastrar" class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300 shadow-md">Salvar</button>
+        </form>
+
+ 
